@@ -5,15 +5,24 @@ import LandingPage from "./pages/LandingPage";
 import SubmissionPage from "./pages/SubmissionPage";
 
 function App() {
+  const styles = {
+    header: {
+      backgroundImage: `url(${
+        process.env.PUBLIC_URL + "/img/imageblurlowcontrastdark.jpg"
+      })`,
+    },
+  };
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/form" exact component={FormPage} />
-          <Route path="/submission" exact component={SubmissionPage} />
-        </Switch>
-      </Router>
+      <div className="background" style={styles.header}>
+        <Router>
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/form" exact component={FormPage} />
+            <Route path="/submission" exact component={SubmissionPage} />
+          </Switch>
+        </Router>
+      </div>
     </div>
   );
 }
