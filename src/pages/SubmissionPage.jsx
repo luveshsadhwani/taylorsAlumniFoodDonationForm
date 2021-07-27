@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function SubmissionPage() {
   const styles = {
@@ -13,48 +14,81 @@ export default function SubmissionPage() {
     },
 
     title: {
-      color: "#038C7F",
+      color: "#02704A",
       fontSize: "4rem",
-      WebkitTextStrokeWidth: "1px",
-      WebkitTextStrokeColor: "white",
+      marginTop: "3rem",
+    },
+
+    titleMobile: {
+      position: "relative",
+      color: "#02704A",
+      marginTop: "2rem",
+      fontSize: "1.75rem",
     },
 
     description: {
       width: "60%",
       margin: "2.5rem auto",
       fontSize: "2rem",
-      color: "white",
+      color: "#D66A0C",
+      fontWeight: "bold",
+    },
+
+    descriptionMobile: {
+      width: "80%",
+      margin: "2rem auto",
+      fontSize: "0.75rem",
+      color: "#D66A0C",
       fontWeight: "bold",
     },
 
     link: {
-      color: "#4146A6",
-      WebkitTextStrokeWidth: "1px",
-      WebkitTextStrokeColor: "white",
+      display: "inline-block",
+      color: "#3B37B8",
     },
   };
 
   const { state } = useLocation();
 
+  const ResponsiveTitle = ({ children }) => {
+    const isMobileScreen = useMediaQuery("(max-width: 600px)");
+
+    return isMobileScreen ? (
+      <h1 style={styles.titleMobile}>{children}</h1>
+    ) : (
+      <h1 style={styles.title}>{children}</h1>
+    );
+  };
+
+  const ResponsiveText = ({ children }) => {
+    const isMobileScreen = useMediaQuery("(max-width: 600px)");
+
+    return isMobileScreen ? (
+      <p style={styles.descriptionMobile}>{children}</p>
+    ) : (
+      <p style={styles.description}>{children}</p>
+    );
+  };
+
   const FormIsSubmittedResponse = () => (
     <>
-      <h1 style={styles.title}>Thank you for submitting!</h1>
-      <p style={styles.description}>
+      <ResponsiveTitle>Thank you for submitting!</ResponsiveTitle>
+      <ResponsiveText>
         You will be redirected to the donor of your choice!
-      </p>
+      </ResponsiveText>
     </>
   );
 
   const FormNotSubmittedResponse = () => (
     <>
-      <h1 style={styles.title}>
-        Oops! <br />
+      <ResponsiveTitle>Oops! </ResponsiveTitle>
+      <ResponsiveText>
         Please submit the{" "}
         <Link to="/form" style={styles.link}>
           form
         </Link>{" "}
         first!
-      </h1>
+      </ResponsiveText>
     </>
   );
 
