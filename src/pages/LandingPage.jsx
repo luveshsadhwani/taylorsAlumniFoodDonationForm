@@ -1,64 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import styles from "../styles/landingPage";
 
 export default function LandingPage() {
-  const styles = {
-    title: {
-      position: "relative",
-      color: "#02704A",
-      marginTop: "3rem",
-      fontSize: "4rem",
-    },
-
-    titleMobile: {
-      position: "relative",
-      color: "#02704A",
-      marginTop: "2rem",
-      fontSize: "1.75rem",
-    },
-
-    description: {
-      width: "60%",
-      margin: "2.5rem auto",
-      fontSize: "1.25rem",
-      color: "#D66A0C",
-    },
-
-    descriptionMobile: {
-      width: "80%",
-      margin: "2rem auto",
-      fontSize: "0.75rem",
-      color: "#D66A0C",
-      fontWeight: "bold",
-    },
-
-    button: {
-      width: "18rem",
-      height: "5rem",
-      backgroundColor: "#3B37B8",
-      color: "white",
-      fontSize: "2rem",
-      marginTop: "1.5rem",
-      border: "none",
-      borderRadius: "5px",
-    },
-
-    buttonMobile: {
-      width: "10rem",
-      height: "4rem",
-      backgroundColor: "#3B37B8",
-      color: "white",
-      fontSize: "1.25rem",
-      marginTop: "1rem",
-      border: "none",
-      borderRadius: "5px",
-    },
-  };
+  const isMobileScreen = useMediaQuery("(max-width: 1024px)");
+  const isSmallMobileScreen = useMediaQuery("(max-width: 400px)");
 
   const ResponsiveTitle = ({ children }) => {
-    const isMobileScreen = useMediaQuery("(max-width: 600px)");
-
     return isMobileScreen ? (
       <h1 style={styles.titleMobile}>{children}</h1>
     ) : (
@@ -67,8 +16,6 @@ export default function LandingPage() {
   };
 
   const ResponsiveText = ({ children }) => {
-    const isMobileScreen = useMediaQuery("(max-width: 600px)");
-
     return isMobileScreen ? (
       <p style={styles.descriptionMobile}>{children}</p>
     ) : (
@@ -77,20 +24,37 @@ export default function LandingPage() {
   };
 
   const ResponsiveButton = ({ children }) => {
-    const isMobileScreen = useMediaQuery("(max-width: 600px)");
-
     return isMobileScreen ? (
-      <button style={styles.buttonMobile}>{children}</button>
+      <button style={styles.buttonMobile}>
+        <span style={styles.buttonTextSpanMobile}>
+          Donate <br />
+        </span>
+        {children}
+      </button>
     ) : (
-      <button style={styles.button}>{children}</button>
+      <button style={styles.button}>
+        <span style={styles.buttonTextSpan}>
+          Donate <br />
+        </span>
+        {children}
+      </button>
     );
   };
 
   return (
     <>
       <ResponsiveTitle>
-        Taylors Alumni <br />
-        White Flag Initiative
+        <img
+          src={`${process.env.PUBLIC_URL}/img/taylorslogotransp.png`}
+          style={{ width: "120px" }}
+        />{" "}
+        <br />
+        Food Bank Donation <br />
+        <span>
+          <h6 style={{ fontSize: "1rem", fontStyle: "italic", color: "black" }}>
+            Taylors Alumni Jaga Kita
+          </h6>
+        </span>
       </ResponsiveTitle>
       <ResponsiveText>
         As the situation of Covid-19 unfolds in Malaysia, Taylors Alumni have
@@ -99,9 +63,20 @@ export default function LandingPage() {
         any form of item donations are welcomed to help those who are in need of
         support
       </ResponsiveText>
-      <Link to="/form">
-        <ResponsiveButton>Donate NOW!</ResponsiveButton>
-      </Link>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          padding: isSmallMobileScreen ? "0rem 1rem" : "0rem 3rem",
+        }}
+      >
+        <Link to="/formOnline">
+          <ResponsiveButton>Online</ResponsiveButton>
+        </Link>
+        <Link to="/formFoodBank">
+          <ResponsiveButton>at Food Bank</ResponsiveButton>
+        </Link>
+      </div>
     </>
   );
 }

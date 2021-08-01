@@ -1,26 +1,26 @@
 import React from "react";
 import { Field } from "formik";
 import { Label, ErrorText } from "./FormElement";
-import styles from "./styles";
+import styles from "../styles/formPage";
 
 export default function CheckBox(props) {
   const { label, name, errorStyle, isMobileScreen, ...rest } = props;
 
   const ResponsiveLabel = ({ children }) => {
     return isMobileScreen ? (
-      <Label style={styles.formElementLabelMobile}>{children}</Label>
+      <Label style={styles.privacyLabelMobile}>{children}</Label>
     ) : (
-      <Label style={styles.formElementLabel}>{children}</Label>
+      <Label style={styles.privacyLabel}>{children}</Label>
     );
   };
 
   const ResponsiveText = ({ children, ...rest }) => {
     return isMobileScreen ? (
-      <label {...rest} style={styles.privacyLabelMobile}>
+      <label {...rest} style={styles.privacyDescriptionMobile}>
         {children}
       </label>
     ) : (
-      <label {...rest} style={styles.privacyLabel}>
+      <label {...rest} style={styles.privacyDescription}>
         {children}
       </label>
     );

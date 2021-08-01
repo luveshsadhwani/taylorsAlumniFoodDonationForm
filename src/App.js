@@ -1,9 +1,22 @@
 import "./App.css";
-import FormPage from "./pages/FormPage";
+import FormOnlinePage from "./pages/FormOnlinePage";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import SubmissionPage from "./pages/SubmissionPage";
-import { Grid } from "@material-ui/core";
+import { Grid, MuiThemeProvider, createTheme } from "@material-ui/core";
+import FormFoodBankPage from "./pages/FormFoodBankPage";
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1025,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+});
 
 function App() {
   const styles = {
@@ -12,22 +25,25 @@ function App() {
     },
   };
   return (
-    <div className="App">
-      <Grid container>
-        <Grid item xs={12} sm={6}>
-          <div className="background" style={styles.header} />
+    <MuiThemeProvider theme={theme}>
+      <div className="App">
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <div className="background" style={styles.header} />
+          </Grid>
+          <Grid item xs={12} md={6} className="contents">
+            <Router>
+              <Switch>
+                <Route path="/" exact component={LandingPage} />
+                <Route path="/formFoodBank" exact component={FormFoodBankPage} />
+                <Route path="/formOnline" exact component={FormOnlinePage} />
+                <Route path="/submission" exact component={SubmissionPage} />
+              </Switch>
+            </Router>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} className="contents">
-          <Router>
-            <Switch>
-              <Route path="/" exact component={LandingPage} />
-              <Route path="/form" exact component={FormPage} />
-              <Route path="/submission" exact component={SubmissionPage} />
-            </Switch>
-          </Router>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </MuiThemeProvider>
   );
 }
 

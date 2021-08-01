@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import FormControl from "../components/FormControl";
-import stylesModule from "../components/styles";
+import styles from "../styles/formPage";
 import { Grid } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-export default function FormPage() {
+export default function FormOnlinePage() {
   const history = useHistory();
-  const isMobileScreen = useMediaQuery("(max-width: 600px)");
+  const isMobileScreen = useMediaQuery("(max-width: 1024px)");
 
   const initialFormData = {
     privacy: false,
@@ -19,7 +19,7 @@ export default function FormPage() {
     contribution: "",
     education: "",
     supportMessage: "",
-    donorChoice: "",
+    campaign: "online",
   };
 
   const validationSchema = Yup.object({
@@ -31,8 +31,7 @@ export default function FormPage() {
     email: Yup.string().email().required("Please fill in your email"),
     contribution: Yup.string().required("Please select your contribution"),
     education: Yup.string().required("Please select your education at Taylors"),
-    supportMessage: Yup.string().required("Please write a support message"),
-    donorChoice: Yup.string().required("Please choose a donor"),
+    supportMessage: Yup.string(),
   });
 
   const handleSubmit = async (values, onSubmitProps) => {
@@ -42,7 +41,7 @@ export default function FormPage() {
       contribution,
       education,
       supportMessage,
-      donorChoice,
+      campaign,
     } = values;
 
     const url =
@@ -55,11 +54,11 @@ export default function FormPage() {
         contribution,
         education,
         supportMessage,
-        donorChoice,
+        campaign,
       })
       .then((response) => console.log(response))
       .then(onSubmitProps.setSubmitting(false))
-      .finally(history.push("/submission", { donorChoice }));
+      .finally(history.push("/submission", { campaign }));
 
     // history.push("/submission", { donorChoice });
   };
@@ -79,19 +78,12 @@ export default function FormPage() {
     { key: "Other", value: "other" },
   ];
 
-  const donorOptions = [
-    { key: "Select your donor", value: "" },
-    { key: "Google", value: "google" },
-    { key: "Youtube", value: "youtube" },
-    { key: "Facebook", value: "facebook" },
-  ];
-
   const ResponsiveRowContainer = ({ children, ...rest }) => {
     return isMobileScreen ? (
       <Grid
         container
         align="left"
-        style={{ paddingLeft: "1rem", marginBottom: "0.5rem" }}
+        style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
         justifyContent="flex-start"
         {...rest}
       >
@@ -101,7 +93,7 @@ export default function FormPage() {
       <Grid
         container
         align="left"
-        style={{ marginTop: "2rem", paddingLeft: "3rem" }}
+        style={{ paddingLeft: "4rem", paddingRight: "6rem" }}
         justifyContent="flex-start"
         {...rest}
       >
@@ -115,8 +107,8 @@ export default function FormPage() {
       <Grid
         container
         align="center"
-        style={{ width: "100%", padding: "0.2rem 0.5rem" }}
-        spacing={1}
+        style={{ width: "100%", padding: "0rem 1.5rem" }}
+        spacing={2}
       >
         {children}
       </Grid>
@@ -125,9 +117,9 @@ export default function FormPage() {
         container
         align="left"
         style={{
-          marginTop: "3rem",
-          paddingLeft: "3rem",
-          width: "80%",
+          paddingLeft: "4rem",
+          paddingRight: "4rem",
+          width: "90%",
         }}
         justifyContent="flex-start"
         spacing={2}
@@ -140,19 +132,19 @@ export default function FormPage() {
 
   const ResponsiveTitle = ({ children }) => {
     return isMobileScreen ? (
-      <h1 style={stylesModule.formTitleMobile}>{children}</h1>
+      <h1 style={styles.titleMobile}>{children}</h1>
     ) : (
-      <h1 style={stylesModule.formTitle}>{children}</h1>
+      <h1 style={styles.title}>{children}</h1>
     );
   };
 
   const ResponsiveButton = ({ children, ...rest }) => {
     return isMobileScreen ? (
-      <button type="submit" style={stylesModule.formButtonMobile} {...rest}>
+      <button type="submit" style={styles.buttonMobile} {...rest}>
         {children}
       </button>
     ) : (
-      <button type="submit" style={stylesModule.formButton} {...rest}>
+      <button type="submit" style={styles.button} {...rest}>
         {children}
       </button>
     );
@@ -178,8 +170,8 @@ export default function FormPage() {
                       label="Privacy Consent"
                       errorStyle={
                         isMobileScreen
-                          ? stylesModule.centerAlignErrorMobile
-                          : stylesModule.centerAlignError
+                          ? styles.centerAlignErrorMobile
+                          : styles.centerAlignError
                       }
                       isMobileScreen={isMobileScreen}
                     />
@@ -187,7 +179,7 @@ export default function FormPage() {
                 </ResponsiveRowContainer>
 
                 <ResponsiveRowFormContainer>
-                  <Grid item xs={6} lg={6}>
+                  <Grid item xs={6} lg={6} style={{ marginTop: "0.7rem" }}>
                     <FormControl
                       control="material-input"
                       label="Full Name"
@@ -196,7 +188,7 @@ export default function FormPage() {
                     />
                   </Grid>
 
-                  <Grid item xs={6} lg={6}>
+                  <Grid item xs={6} lg={6} style={{ marginTop: "0.7rem" }}>
                     <FormControl
                       control="material-input"
                       label="Email"
@@ -206,14 +198,7 @@ export default function FormPage() {
                   </Grid>
                 </ResponsiveRowFormContainer>
 
-                <ResponsiveRowFormContainer
-                  style={{
-                    marginTop: "1rem",
-                    paddingLeft: "3rem",
-                    width: "80%",
-                  }}
-                  spacing={2}
-                >
+                <ResponsiveRowFormContainer>
                   <Grid item xs={6} lg={6}>
                     <FormControl
                       control="material-select"
@@ -235,13 +220,7 @@ export default function FormPage() {
                   </Grid>
                 </ResponsiveRowFormContainer>
 
-                <ResponsiveRowFormContainer
-                  style={{
-                    marginTop: "1rem",
-                    paddingLeft: "3rem",
-                    width: "80%",
-                  }}
-                >
+                <ResponsiveRowFormContainer>
                   <Grid item xs={12} lg={12}>
                     <FormControl
                       control="material-textarea"
@@ -252,27 +231,9 @@ export default function FormPage() {
                   </Grid>
                 </ResponsiveRowFormContainer>
 
-                <ResponsiveRowFormContainer
-                  style={{
-                    marginTop: "1rem",
-                    paddingLeft: "3rem",
-                    width: "80%",
-                  }}
-                >
-                  <Grid item xs={6} lg={6}>
-                    <FormControl
-                      control="material-select"
-                      label="Donor"
-                      name="donorChoice"
-                      options={donorOptions}
-                      isMobileScreen={isMobileScreen}
-                    />
-                  </Grid>
-                </ResponsiveRowFormContainer>
-
                 <ResponsiveRowContainer>
                   <ResponsiveButton disabled={formik.isSubmitting}>
-                    SUBMIT!
+                    SUBMIT
                   </ResponsiveButton>
                 </ResponsiveRowContainer>
               </Form>

@@ -2,57 +2,13 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import styles from "../styles/submissionPage";
 
 export default function SubmissionPage() {
-  const styles = {
-    container: {
-      display: "flex",
-      justifyContent: "center",
-      alignitems: "center",
-      flexDirection: "column",
-      height: "100%",
-    },
-
-    title: {
-      color: "#02704A",
-      fontSize: "4rem",
-      marginTop: "3rem",
-    },
-
-    titleMobile: {
-      position: "relative",
-      color: "#02704A",
-      marginTop: "2rem",
-      fontSize: "1.75rem",
-    },
-
-    description: {
-      width: "60%",
-      margin: "2.5rem auto",
-      fontSize: "2rem",
-      color: "#D66A0C",
-      fontWeight: "bold",
-    },
-
-    descriptionMobile: {
-      width: "80%",
-      margin: "2rem auto",
-      fontSize: "0.75rem",
-      color: "#D66A0C",
-      fontWeight: "bold",
-    },
-
-    link: {
-      display: "inline-block",
-      color: "#3B37B8",
-    },
-  };
-
+  const isMobileScreen = useMediaQuery("(max-width: 1024px)");
   const { state } = useLocation();
 
   const ResponsiveTitle = ({ children }) => {
-    const isMobileScreen = useMediaQuery("(max-width: 600px)");
-
     return isMobileScreen ? (
       <h1 style={styles.titleMobile}>{children}</h1>
     ) : (
@@ -61,8 +17,6 @@ export default function SubmissionPage() {
   };
 
   const ResponsiveText = ({ children }) => {
-    const isMobileScreen = useMediaQuery("(max-width: 600px)");
-
     return isMobileScreen ? (
       <p style={styles.descriptionMobile}>{children}</p>
     ) : (
@@ -70,22 +24,32 @@ export default function SubmissionPage() {
     );
   };
 
-  const FormIsSubmittedResponse = () => (
-    <>
-      <ResponsiveTitle>Thank you for submitting!</ResponsiveTitle>
-      <ResponsiveText>
-        You will be redirected to the donor of your choice!
-      </ResponsiveText>
-    </>
-  );
+  const FormIsSubmittedResponse = () => {
+    if (!state) return;
+    const { campaign } = state;
+    const submissionResponse =
+      campaign === "online"
+        ? "You will be redirected to the petronas online food bank!"
+        : "You can proceed with your donation at the food bank!";
+    return (
+      <>
+        <ResponsiveTitle>Thank you!</ResponsiveTitle>
+
+        <ResponsiveText>{submissionResponse}</ResponsiveText>
+      </>
+    );
+  };
 
   const FormNotSubmittedResponse = () => (
     <>
       <ResponsiveTitle>Oops! </ResponsiveTitle>
       <ResponsiveText>
-        Please submit the{" "}
+        Please submit the form for{" "}
+        <Link to="/formOnline" style={styles.link}>
+          online donations
+        </Link>or {" "}
         <Link to="/form" style={styles.link}>
-          form
+          donations at the food bank
         </Link>{" "}
         first!
       </ResponsiveText>
@@ -94,16 +58,10 @@ export default function SubmissionPage() {
 
   useEffect(() => {
     if (state) {
-      const { donorChoice } = state;
+      const { campaign } = state;
       const matchDonorToLink = () => {
-        if (donorChoice === "donor1") {
+        if (campaign === "online") {
           window.location.href = "https://www.google.com/";
-        }
-        if (donorChoice === "donor2") {
-          window.location.href = "https://www.youtube.com/";
-        }
-        if (donorChoice === "donor3") {
-          window.location.href = "https://www.facebook.com/";
         }
       };
 
