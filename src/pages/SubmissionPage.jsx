@@ -47,8 +47,9 @@ export default function SubmissionPage() {
         Please submit the form for{" "}
         <Link to="/formOnline" style={styles.link}>
           online donations
-        </Link>or {" "}
-        <Link to="/form" style={styles.link}>
+        </Link>{" "}
+        or{" "}
+        <Link to="/formFoodBank" style={styles.link}>
           donations at the food bank
         </Link>{" "}
         first!
