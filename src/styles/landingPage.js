@@ -41,6 +41,7 @@ const styles = {
     marginTop: "1.5rem",
     border: "none",
     borderRadius: "5px",
+    cursor:"pointer",
   },
 
   buttonMobile: {
