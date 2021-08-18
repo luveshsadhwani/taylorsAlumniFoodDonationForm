@@ -1,7 +1,7 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
 import "../styles/pagetransition.css";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 export default function RouteTransition({ routes = [] }) {
   return (

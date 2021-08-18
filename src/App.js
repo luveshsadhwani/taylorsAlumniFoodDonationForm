@@ -1,5 +1,5 @@
 import "./App.css";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Switch, BrowserRouter as Router } from "react-router-dom";
 import { Grid, MuiThemeProvider, createTheme } from "@material-ui/core";
 import RouteTransition from "./components/RouteTransition";
 
@@ -44,14 +44,6 @@ function App() {
             <Router>
               <Switch>
                 <RouteTransition routes={routes}/>
-                {/* <Route path="/" exact component={LandingPage} />
-                <Route
-                  path="/formFoodBank"
-                  exact
-                  component={FormFoodBankPage}
-                />
-                <Route path="/formOnline" exact component={FormOnlinePage} />
-                <Route path="/submission" exact component={SubmissionPage} /> */}
               </Switch>
             </Router>
           </Grid>
