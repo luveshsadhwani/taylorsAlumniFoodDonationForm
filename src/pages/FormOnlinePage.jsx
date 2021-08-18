@@ -1,14 +1,30 @@
-import React from "react";
-import { Formik, Form } from "formik";
+import React, { useState } from "react";
+import { Formik, Form, useField } from "formik";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import FormControl from "../components/FormControl";
+import MaterialModal from "../components/MaterialModal";
 import styles from "../styles/formPage";
+import globalStyles from "../styles/global";
 import { Grid } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
+const ErrorText = ({ name, errorStyle }) => {
+  const [field, meta, helpers] = useField(name);
+
+  const renderError = () => {
+    if (!meta.error) return;
+
+    return <p>{meta.error}</p>;
+  };
+
+  return <div style={errorStyle}>{renderError()}</div>;
+};
+
 export default function FormOnlinePage() {
+  const [dialogVisible, setDialogVisible] = useState(false);
+
   const history = useHistory();
   const isMobileScreen = useMediaQuery("(max-width: 1024px)");
 
@@ -164,17 +180,25 @@ export default function FormOnlinePage() {
               <Form>
                 <ResponsiveRowContainer>
                   <Grid item xs={12}>
-                    <FormControl
-                      control="checkbox"
-                      name="privacy"
-                      label="Privacy Consent"
-                      errorStyle={
-                        isMobileScreen
-                          ? styles.centerAlignErrorMobile
-                          : styles.centerAlignError
-                      }
+                    <MaterialModal
+                      isVisible={dialogVisible}
+                      setIsVisible={setDialogVisible}
                       isMobileScreen={isMobileScreen}
                     />
+                    <h4>
+                      Please{" "}
+                      <span
+                        onClick={() => setDialogVisible(true)}
+                        style={{
+                          textDecoration: "underline",
+                          color: globalStyles.tertiaryColor,
+                          cursor: "pointer",
+                        }}
+                      >
+                        click here
+                      </span>{" "}
+                      to view and accept our terms and conditions
+                    </h4>
                   </Grid>
                 </ResponsiveRowContainer>
 
@@ -235,6 +259,17 @@ export default function FormOnlinePage() {
                   <ResponsiveButton disabled={formik.isSubmitting}>
                     SUBMIT
                   </ResponsiveButton>
+                </ResponsiveRowContainer>
+
+                <ResponsiveRowContainer>
+                  <ErrorText
+                    name="privacy"
+                    errorStyle={
+                      isMobileScreen
+                        ? styles.centerAlignErrorMobile
+                        : styles.centerAlignError
+                    }
+                  />
                 </ResponsiveRowContainer>
               </Form>
             );

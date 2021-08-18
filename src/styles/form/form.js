@@ -61,8 +61,30 @@ const useStyles = makeStyles({
   },
 
   selectIcon: {
-      color: globalStyles.secondaryColorDark
-  } 
+    color: globalStyles.secondaryColorDark,
+  },
+
+  modalPosition: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalPaper: {
+    width: "70%",
+    backgroundColor: globalStyles.backgroundColor,
+    padding: "2rem",
+    "&:focus": {
+      outline: "none",
+    },
+    overflow: "scroll",
+    height: "60vh"
+  },
+
+  modalText: {
+    fontWeight: "normal",
+    fontStyle: "italic",
+  },
 });
 
 export { useStyles };
