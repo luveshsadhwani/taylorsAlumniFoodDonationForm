@@ -56,6 +56,7 @@ const styles = {
     marginTop: "1rem",
     border: "none",
     borderRadius: "5px",
+    cursor:"pointer",
   },
 
   buttonMobile: {
@@ -98,7 +99,7 @@ const styles = {
   },
 
   centerAlignError: {
-    color: "#CC0011",
+    color: "#f44336",
     fontFamily: "Helvetica",
     position: "relative",
     margin: "3px 14px 0px 14px",
@@ -106,7 +107,7 @@ const styles = {
   },
 
   centerAlignErrorMobile: {
-    color: "#CC0011",
+    color: "#f44336",
     fontFamily: "Helvetica",
     position: "relative",
     margin: "3px 14px 0px 14px",
