@@ -30,12 +30,12 @@ const useStyles = makeStyles({
 
   cssOutlinedInput: {
     "&$cssFocused $notchedOutline": {
-      borderColor: `${globalStyles.primaryColor}`,
+      borderColor: `${globalStyles.tertiaryColor}`,
     },
   },
 
   inputTextRoot: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     // padding: "10px"
   },
 
@@ -49,9 +49,9 @@ const useStyles = makeStyles({
 
   helperTextRoot: {
     color: "black",
-    // "&.Mui-error": {
-    //   color: globalStyles.errorTextColor,
-    // },
+    "&.Mui-error": {
+      color: globalStyles.errorTextColor,
+    },
   },
 
   helperTextMobile: {
@@ -72,7 +72,7 @@ const useStyles = makeStyles({
 
   modalPaper: {
     width: "70%",
-    backgroundColor: globalStyles.backgroundColor,
+    backgroundColor: "white",
     padding: "2rem",
     "&:focus": {
       outline: "none",

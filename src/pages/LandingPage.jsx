@@ -26,17 +26,17 @@ export default function LandingPage() {
   const ResponsiveButton = () => {
     return isMobileScreen ? (
       <button style={styles.buttonMobile}>
-        <span style={styles.buttonTextSpanMobile}>
+        <strong>
           Donate <br />
-        </span>
-        Now!
+          Now!
+        </strong>
       </button>
     ) : (
       <button style={styles.button}>
-        <span style={styles.buttonTextSpan}>
+        <strong>
           Donate <br />
-        </span>
-        Now!
+          Now!
+        </strong>
       </button>
     );
   };
@@ -45,22 +45,16 @@ export default function LandingPage() {
     <>
       <ResponsiveTitle>
         <img
-          src={`${process.env.PUBLIC_URL}/img/taylorslogotransp.png`}
-          style={{ width: "120px" }}
-        />{" "}
-        <br />
-        Food Bank Donation <br />
-        <span>
-          <h6 style={{ fontSize: "1rem", fontStyle: "italic", color: "black" }}>
-            Taylors Alumni Jaga Kita
-          </h6>
-        </span>
+          src={`${process.env.PUBLIC_URL}/img/title-banner-cropped.jpg`}
+          style={{ width: "80%" }}
+        />
       </ResponsiveTitle>
       <ResponsiveText>
         As the situation of Covid-19 unfolds in Malaysia, Taylors Alumni have
-        collaborated with The Lost Food Project to help those in need with donations to their food banks. We are facing an unprecedented challenge and
-        any form of item donations are welcomed to help those who are in need of
-        support.
+        collaborated with The Lost Food Project to help those in need with
+        donations to their food banks. We are facing an unprecedented challenge
+        and any form of item donations are welcomed to help those who are in
+        need of support.
       </ResponsiveText>
       <div
         style={{

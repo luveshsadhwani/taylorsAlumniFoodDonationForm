@@ -21,7 +21,7 @@ export default function MaterialTextArea(props) {
               {...rest}
               error={isError}
               helperText="Optional"
-              variant="outlined"
+              variant="filled"
               InputLabelProps={{
                 classes: {
                   root: isMobileScreen

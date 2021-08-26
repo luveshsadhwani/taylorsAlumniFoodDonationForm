@@ -3,7 +3,8 @@
 }
 
 body {
-  background-color: #ecf7e9;
+  background-color: #77beea
+  ;
 }
 
 .App {
@@ -43,9 +44,9 @@ body {
 @media screen and (max-width: 1024px) {
   .background {
     width: 100%;
-    height: 20vh;
+    height: 30vh;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 50% 30%;
     background-size: cover;
     position: relative;
     top: 0;

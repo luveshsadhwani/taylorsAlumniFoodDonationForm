@@ -27,7 +27,7 @@ export default function MaterialInput(props) {
                     : `${tempClass.helperTextRoot}`,
                 },
               }}
-              variant="outlined"
+              variant="filled"
               InputLabelProps={{
                 classes: {
                   root: isMobileScreen

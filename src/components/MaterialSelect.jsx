@@ -30,7 +30,7 @@ function MaterialSelect(props) {
                   : `${tempClass.helperTextRoot}`,
               },
             }}
-            variant="outlined"
+            variant="filled"
             InputLabelProps={{
               classes: {
                 root: isMobileScreen

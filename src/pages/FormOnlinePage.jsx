@@ -302,7 +302,7 @@ export default function FormOnlinePage() {
 
                 <ResponsiveRowContainer>
                   <ResponsiveButton disabled={formik.isSubmitting}>
-                    SUBMIT
+                    <strong>Submit</strong>
                   </ResponsiveButton>
                 </ResponsiveRowContainer>
 

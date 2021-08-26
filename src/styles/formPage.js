@@ -2,7 +2,7 @@ import globalStyles from "./global";
 
 const styles = {
   title: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     position: "relative",
     fontSize: "2rem",
     marginTop: "2rem",
@@ -11,7 +11,7 @@ const styles = {
   },
 
   titleMobile: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     position: "relative",
     fontSize: "1.5rem",
     marginTop: "1rem",
@@ -34,14 +34,14 @@ const styles = {
   },
 
   privacyDescription: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     fontSize: "0.9rem",
     fontWeight: "500",
     marginLeft: 8,
   },
 
   privacyDescriptionMobile: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     fontSize: "0.75rem",
     fontWeight: "500",
     marginLeft: 8,
@@ -99,7 +99,7 @@ const styles = {
   },
 
   centerAlignError: {
-    color: "#f44336",
+    color: globalStyles.errorTextColor,
     fontFamily: "Helvetica",
     position: "relative",
     margin: "3px 14px 0px 14px",
@@ -107,7 +107,7 @@ const styles = {
   },
 
   centerAlignErrorMobile: {
-    color: "#f44336",
+    color: globalStyles.errorTextColor,
     fontFamily: "Helvetica",
     position: "relative",
     margin: "3px 14px 0px 14px",

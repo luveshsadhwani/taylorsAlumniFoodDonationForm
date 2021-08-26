@@ -5,7 +5,7 @@ const styles = {
     color: globalStyles.primaryColor,
     position: "relative",
     fontSize: "3rem",
-    marginTop: "3rem",
+    marginTop: "1.5rem",
     padding: "1rem",
   },
 
@@ -21,7 +21,7 @@ const styles = {
     width: "60%",
     fontSize: "1rem",
     fontWeight: "bold",
-    margin: "2.5rem auto",
+    margin: "1rem auto",
   },
 
   descriptionMobile: {

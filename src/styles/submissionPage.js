@@ -10,13 +10,13 @@ const styles = {
   },
 
   title: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     fontSize: "4rem",
     marginTop: "3rem",
   },
 
   titleMobile: {
-    color: globalStyles.primaryColor,
+    color: globalStyles.secondaryColorDark,
     position: "relative",
     marginTop: "2rem",
     fontSize: "1.75rem",
@@ -25,7 +25,7 @@ const styles = {
   description: {
     color: globalStyles.secondaryColorDark,
     width: "70%",
-    fontSize: "1.5rem",
+    fontSize: "1.3rem",
     fontWeight: "bold",
     margin: "2.5rem auto",
   },
