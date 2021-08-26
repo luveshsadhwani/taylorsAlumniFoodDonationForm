@@ -33,9 +33,9 @@ export default function FormOnlinePage() {
     fullName: "",
     email: "",
     contribution: "",
+    contributionOther: "",
     education: "",
     supportMessage: "",
-    campaign: "online",
   };
 
   const validationSchema = Yup.object({
@@ -51,40 +51,67 @@ export default function FormOnlinePage() {
   });
 
   const handleSubmit = async (values, onSubmitProps) => {
+    const timestamp = new Date().toLocaleString();
+
+    const { setFieldError, setSubmitting } = onSubmitProps;
+
     const {
       fullName,
       email,
       contribution,
+      contributionOther,
       education,
       supportMessage,
-      campaign,
     } = values;
 
     const url =
       "https://sheet.best/api/sheets/6839cda2-8c56-4197-b427-b5d5e8e58404";
 
-    await axios
-      .post(url, {
-        fullName,
-        email,
-        contribution,
-        education,
-        supportMessage,
-        campaign,
-      })
-      .then((response) => console.log(response))
-      .then(onSubmitProps.setSubmitting(false))
-      .finally(history.push("/submission", { campaign }));
+    if (contribution === "other") {
+      const contributionOtherNumeric = parseInt(contributionOther) || 0;
+      if (contributionOtherNumeric < 100) {
+        setFieldError("contributionOther", "Please donate at least RM 100");
+        setSubmitting(false);
+      } else {
+        await axios
+          .post(url, {
+            timestamp,
+            fullName,
+            email,
+            contribution,
+            contributionOther,
+            education,
+            supportMessage,
+          })
+          .then((response) => console.log(response))
+          .then(setSubmitting(false))
+          .finally(history.push("/submission", { values }));
+      }
+    }
 
-    // history.push("/submission", { donorChoice });
+    if (contribution !== "other") {
+      await axios
+        .post(url, {
+          timestamp,
+          fullName,
+          email,
+          contribution,
+          contributionOther,
+          education,
+          supportMessage,
+        })
+        .then((response) => console.log(response))
+        .then(setSubmitting(false))
+        .finally(history.push("/submission", { values }));
+    }
   };
 
   const contributionOptions = [
     { key: "Select your contribution", value: "" },
-    { key: "RM 10 - 49", value: "rm10To49" },
-    { key: "RM 50 - 99", value: "rm50To99" },
-    { key: "RM 100 - 149", value: "rm99To149" },
-    { key: "RM 150 and above", value: "rm150Above" },
+    { key: "RM 100", value: "100" },
+    { key: "RM 150", value: "150" },
+    { key: "RM 300", value: "300" },
+    { key: "Other", value: "other" },
   ];
 
   const educationOptions = [
@@ -166,6 +193,29 @@ export default function FormOnlinePage() {
     );
   };
 
+  const switchFormControl = (formikValues) => {
+    const value = formikValues["contribution"];
+    const valueIsOther = value === "other";
+
+    return valueIsOther ? (
+      <FormControl
+        control="material-input"
+        label="Contribution"
+        name="contributionOther"
+        isMobileScreen={isMobileScreen}
+        helperText="Minimum RM 100"
+      />
+    ) : (
+      <FormControl
+        control="material-select"
+        label="Contribution"
+        name="contribution"
+        options={contributionOptions}
+        isMobileScreen={isMobileScreen}
+      />
+    );
+  };
+
   return (
     <>
       <div>
@@ -176,6 +226,7 @@ export default function FormOnlinePage() {
           validationSchema={validationSchema}
         >
           {(formik) => {
+            console.log(formik);
             return (
               <Form>
                 <ResponsiveRowContainer>
@@ -224,13 +275,7 @@ export default function FormOnlinePage() {
 
                 <ResponsiveRowFormContainer>
                   <Grid item xs={6} lg={6}>
-                    <FormControl
-                      control="material-select"
-                      label="Contribution"
-                      name="contribution"
-                      options={contributionOptions}
-                      isMobileScreen={isMobileScreen}
-                    />
+                    {switchFormControl(formik.values)}
                   </Grid>
 
                   <Grid item xs={6} lg={6}>

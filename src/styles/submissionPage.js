@@ -24,8 +24,8 @@ const styles = {
 
   description: {
     color: globalStyles.secondaryColorDark,
-    width: "60%",
-    fontSize: "2rem",
+    width: "70%",
+    fontSize: "1.5rem",
     fontWeight: "bold",
     margin: "2.5rem auto",
   },
@@ -41,6 +41,29 @@ const styles = {
   link: {
     color: globalStyles.tertiaryColor,
     display: "inline-block",
+  },
+
+  button: {
+    backgroundColor: globalStyles.tertiaryColor,
+    color: "white",
+    fontSize: "1.3rem",
+    height: "5rem",
+    width: "12rem",
+    marginTop: "1.5rem",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+
+  buttonMobile: {
+    backgroundColor: globalStyles.tertiaryColor,
+    color: "white",
+    fontSize: "1.1rem",
+    height: "4rem",
+    width: "8rem",
+    marginTop: "1rem",
+    border: "none",
+    borderRadius: "5px",
   },
 };
 

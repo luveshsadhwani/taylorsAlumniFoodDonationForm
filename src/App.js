@@ -6,11 +6,9 @@ import RouteTransition from "./components/RouteTransition";
 import FormOnlinePage from "./pages/FormOnlinePage";
 import LandingPage from "./pages/LandingPage";
 import SubmissionPage from "./pages/SubmissionPage";
-import FormFoodBankPage from "./pages/FormFoodBankPage";
 
 const routes = [
   { path: "/", Component: LandingPage },
-  { path: "/formFoodBank", Component: FormFoodBankPage },
   { path: "/formOnline", Component: FormOnlinePage },
   { path: "/submission", Component: SubmissionPage },
 ];

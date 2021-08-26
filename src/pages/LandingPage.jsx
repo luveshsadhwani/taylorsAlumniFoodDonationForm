@@ -23,20 +23,20 @@ export default function LandingPage() {
     );
   };
 
-  const ResponsiveButton = ({ children }) => {
+  const ResponsiveButton = () => {
     return isMobileScreen ? (
       <button style={styles.buttonMobile}>
         <span style={styles.buttonTextSpanMobile}>
           Donate <br />
         </span>
-        {children}
+        Now!
       </button>
     ) : (
       <button style={styles.button}>
         <span style={styles.buttonTextSpan}>
           Donate <br />
         </span>
-        {children}
+        Now!
       </button>
     );
   };
@@ -58,10 +58,9 @@ export default function LandingPage() {
       </ResponsiveTitle>
       <ResponsiveText>
         As the situation of Covid-19 unfolds in Malaysia, Taylors Alumni have
-        collaborated with Petronas to help those in need with donations of items
-        to Petronas’ food banks. We are facing an unprecedented challenge and
+        collaborated with The Lost Food Project to help those in need with donations to their food banks. We are facing an unprecedented challenge and
         any form of item donations are welcomed to help those who are in need of
-        support
+        support.
       </ResponsiveText>
       <div
         style={{
@@ -71,10 +70,7 @@ export default function LandingPage() {
         }}
       >
         <Link to="/formOnline">
-          <ResponsiveButton>Online</ResponsiveButton>
-        </Link>
-        <Link to="/formFoodBank">
-          <ResponsiveButton>at Food Bank</ResponsiveButton>
+          <ResponsiveButton />
         </Link>
       </div>
     </>

@@ -6,8 +6,7 @@ import { useStyles as tempStyle } from "../styles/form/form";
 
 export default function MaterialInput(props) {
   const tempClass = tempStyle();
-  const { label, name, isMobileScreen, ...rest } = props;
-
+  const { label, name, isMobileScreen, helperText = "", ...rest } = props;
   return (
     <div>
       <Field name={name}>
@@ -20,7 +19,14 @@ export default function MaterialInput(props) {
               {...field}
               {...rest}
               error={isError}
-              helperText={isError ? form.errors[name] : null}
+              helperText={isError ? form.errors[name] : helperText}
+              FormHelperTextProps={{
+                classes: {
+                  root: isMobileScreen
+                    ? `${tempClass.helperTextRoot} ${tempClass.helperTextMobile}`
+                    : `${tempClass.helperTextRoot}`,
+                },
+              }}
               variant="outlined"
               InputLabelProps={{
                 classes: {

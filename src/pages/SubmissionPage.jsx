@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -24,18 +24,30 @@ export default function SubmissionPage() {
     );
   };
 
+  const ResponsiveButton = () => {
+    return isMobileScreen ? (
+      <button style={styles.buttonMobile}>The Lost Food Project</button>
+    ) : (
+      <button style={styles.button}>The Lost Food Project</button>
+    );
+  };
+
   const FormIsSubmittedResponse = () => {
-    if (!state) return;
-    const { campaign } = state;
-    const submissionResponse =
-      campaign === "online"
-        ? "You will be redirected to the petronas online food bank!"
-        : "You can proceed with your donation at the food bank!";
     return (
       <>
         <ResponsiveTitle>Thank you!</ResponsiveTitle>
 
-        <ResponsiveText>{submissionResponse}</ResponsiveText>
+        <ResponsiveText>
+          You will proceed to The Lost Food Project. <br />
+          <br />
+          Please select SINGLE GIFT for the donation.
+          <br />
+          <br /> Click below once you are ready!
+        </ResponsiveText>
+
+        <a href="https://donate.thelostfoodproject.org/ODP/Donate/DonateNow">
+          <ResponsiveButton />
+        </a>
       </>
     );
   };
@@ -44,31 +56,14 @@ export default function SubmissionPage() {
     <>
       <ResponsiveTitle>Oops! </ResponsiveTitle>
       <ResponsiveText>
-        Please submit the form for{" "}
+        Please submit the{" "}
         <Link to="/formOnline" style={styles.link}>
-          online donations
-        </Link>{" "}
-        or{" "}
-        <Link to="/formFoodBank" style={styles.link}>
-          donations at the food bank
+          form for donations
         </Link>{" "}
         first!
       </ResponsiveText>
     </>
   );
-
-  useEffect(() => {
-    if (state) {
-      const { campaign } = state;
-      const matchDonorToLink = () => {
-        if (campaign === "online") {
-          window.location.href = "https://www.google.com/";
-        }
-      };
-
-      setTimeout(matchDonorToLink, 2000);
-    }
-  }, []);
 
   return (
     <div style={styles.container}>
