@@ -45,7 +45,6 @@ function MaterialSelect(props) {
                 input: isMobileScreen
                   ? `${tempClass.inputTextRoot} ${tempClass.inputTextMobile}`
                   : `${tempClass.inputTextRoot} ${tempClass.inputText}`,
-                notchedOutline: tempClass.notchedOutline,
               },
             }}
             SelectProps={{

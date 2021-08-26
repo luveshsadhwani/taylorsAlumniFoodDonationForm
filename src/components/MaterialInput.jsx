@@ -42,7 +42,6 @@ export default function MaterialInput(props) {
                   input: isMobileScreen
                     ? `${tempClass.inputTextRoot} ${tempClass.inputTextMobile}`
                     : `${tempClass.inputTextRoot} ${tempClass.inputText}`,
-                  notchedOutline: tempClass.notchedOutline,
                 },
               }}
               // FormHelperTextProps={}

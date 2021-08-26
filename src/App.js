@@ -1,5 +1,5 @@
 import "./App.css";
-import { Switch, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Grid, MuiThemeProvider, createTheme } from "@material-ui/core";
 import RouteTransition from "./components/RouteTransition";
 
@@ -40,9 +40,7 @@ function App() {
           </Grid>
           <Grid item xs={12} md={6} className="contents">
             <Router>
-              <Switch>
-                <RouteTransition routes={routes}/>
-              </Switch>
+              <RouteTransition routes={routes} />
             </Router>
           </Grid>
         </Grid>

@@ -47,6 +47,7 @@ export default function LandingPage() {
         <img
           src={`${process.env.PUBLIC_URL}/img/title-banner-cropped.jpg`}
           style={{ width: "80%" }}
+          alt="donating food to those who need it"
         />
       </ResponsiveTitle>
       <ResponsiveText>

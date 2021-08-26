@@ -226,7 +226,6 @@ export default function FormOnlinePage() {
           validationSchema={validationSchema}
         >
           {(formik) => {
-            console.log(formik);
             return (
               <Form>
                 <ResponsiveRowContainer>

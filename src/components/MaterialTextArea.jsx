@@ -36,7 +36,6 @@ export default function MaterialTextArea(props) {
                   input: isMobileScreen
                     ? `${tempClass.inputTextRoot} ${tempClass.inputTextMobile}`
                     : `${tempClass.inputTextRoot} ${tempClass.inputText}`,
-                  notchedOutline: tempClass.notchedOutline,
                 },
               }}
               multiline
