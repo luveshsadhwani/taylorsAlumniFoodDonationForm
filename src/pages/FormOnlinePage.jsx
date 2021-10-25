@@ -69,9 +69,10 @@ export default function FormOnlinePage() {
 
     if (contribution === "other") {
       const contributionOtherNumeric = parseInt(contributionOther) || 0;
-      if (contributionOtherNumeric < 100) {
-        setFieldError("contributionOther", "Please donate at least RM 100");
+      if (contributionOtherNumeric === 0) {
+        setFieldError("contributionOther", "Please enter a valid number");
         setSubmitting(false);
+        return;
       } else {
         await axios
           .post(url, {
@@ -83,9 +84,13 @@ export default function FormOnlinePage() {
             education,
             supportMessage,
           })
-          .then((response) => console.log(response))
-          .then(setSubmitting(false))
-          .finally(history.push("/submission", { values }));
+          .then((response) => {
+            if (response.status === 200) {
+              setSubmitting(false);
+              history.push("/submission", { values });
+            }
+          })
+          .catch((err) => console.error(err));
       }
     }
 
@@ -116,8 +121,10 @@ export default function FormOnlinePage() {
 
   const educationOptions = [
     { key: "Select your education", value: "" },
-    { key: "Taylor's University", value: "university" },
-    { key: "Taylor's College", value: "college" },
+    { key: "Taylor's University Alumni", value: "univeristy-alumni" },
+    { key: "Taylor's University Student", value: "university-student" },
+    { key: "Taylor's College Alumni", value: "college-alumni" },
+    { key: "Taylor's College Student", value: "college-student" },
     { key: "Other", value: "other" },
   ];
 
@@ -203,7 +210,7 @@ export default function FormOnlinePage() {
         label="Contribution"
         name="contributionOther"
         isMobileScreen={isMobileScreen}
-        helperText="Minimum RM 100"
+        helperText="Enter your contribution in RM"
       />
     ) : (
       <FormControl
@@ -301,7 +308,11 @@ export default function FormOnlinePage() {
 
                 <ResponsiveRowContainer>
                   <ResponsiveButton disabled={formik.isSubmitting}>
-                    <strong>Submit</strong>
+                    {formik.isSubmitting ? (
+                      <strong>Sending...</strong>
+                    ) : (
+                      <strong>Submit</strong>
+                    )}
                   </ResponsiveButton>
                 </ResponsiveRowContainer>
 
