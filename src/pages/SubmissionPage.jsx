@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import styles from "../styles/submissionPage";
 
 export default function SubmissionPage() {
+  const [contribution, setContribution] = useState(0);
   const isMobileScreen = useMediaQuery("(max-width: 1024px)");
   const { state } = useLocation();
+
+  useEffect(() => {
+    const contributionOther = parseInt(state?.values?.contributionOther);
+    setContribution(contributionOther);
+  }, [state?.values?.contributionOther]);
 
   const ResponsiveTitle = ({ children }) => {
     return isMobileScreen ? (
@@ -52,6 +58,24 @@ export default function SubmissionPage() {
     );
   };
 
+  const FormIsSubmittedResponseLessThan100Contribution = () => {
+    return (
+      <>
+        <ResponsiveTitle>Thank you!</ResponsiveTitle>
+
+        <ResponsiveText>
+          Please send your donation directly to the Lost Food Project! <br />
+          <br />
+          Maybank
+          <br />
+          Account Name: The Lost Food Project
+          <br />
+          Account Number: 5148 9706 8927
+        </ResponsiveText>
+      </>
+    );
+  };
+
   const FormNotSubmittedResponse = () => (
     <>
       <ResponsiveTitle>Oops! </ResponsiveTitle>
@@ -67,7 +91,15 @@ export default function SubmissionPage() {
 
   return (
     <div style={styles.container}>
-      {state ? <FormIsSubmittedResponse /> : <FormNotSubmittedResponse />}
+      {state ? (
+        contribution < 100 ? (
+          <FormIsSubmittedResponseLessThan100Contribution />
+        ) : (
+          <FormIsSubmittedResponse />
+        )
+      ) : (
+        <FormNotSubmittedResponse />
+      )}
     </div>
   );
 }
