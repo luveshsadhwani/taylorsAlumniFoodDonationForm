@@ -106,19 +106,6 @@ const styles = {
     margin: "3px 14px 0px 14px",
     fontSize: "0.6rem",
   },
-
-  privacyLabel: {
-    marginLeft: 8,
-    color: "#025739",
-    fontWeight: "500",
-  },
-
-  privacyLabelMobile: {
-    marginLeft: 8,
-    color: "#025739",
-    fontWeight: "500",
-    fontSize: "0.75rem",
-  },
 };
 
 export default styles;

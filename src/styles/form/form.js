@@ -1,15 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
-import globalStyles from "../global";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   formElementLabelMuiRoot: {
-    color: globalStyles.secondaryColorDark,
+    color: theme.palette.secondary.dark,
     // fontWeight: "bolder",
     "&.Mui-focused": {
-      color: globalStyles.secondaryColorDark,
+      color: theme.palette.secondary.main,
     },
     "&.Mui-error": {
-      color: globalStyles.secondaryColorDark,
+      color: theme.palette.error.dark,
     },
   },
 
@@ -21,21 +20,17 @@ const useStyles = makeStyles({
     fontSize: "0.75em",
   },
 
-  notchedOutline: {
-    borderWidth: "2px",
-    borderColor: `${globalStyles.secondaryColorDark}`,
-  },
-
   cssFocused: {},
 
   cssOutlinedInput: {
-    "&$cssFocused $notchedOutline": {
-      borderColor: `${globalStyles.tertiaryColor}`,
+    "&.MuiFilledInput-underline:before": {
+      borderColor: theme.palette.secondary.main,
     },
   },
 
   inputTextRoot: {
-    color: globalStyles.secondaryColorDark,
+    color: theme.palette.secondary.dark,
+    fontWeight: "bold",
     // padding: "10px"
   },
 
@@ -48,9 +43,9 @@ const useStyles = makeStyles({
   },
 
   helperTextRoot: {
-    color: "black",
+    color: theme.palette.secondary.dark,
     "&.Mui-error": {
-      color: globalStyles.errorTextColor,
+      color: theme.palette.error.main,
     },
   },
 
@@ -61,7 +56,7 @@ const useStyles = makeStyles({
   },
 
   selectIcon: {
-    color: globalStyles.secondaryColorDark,
+    color: theme.palette.secondary.dark,
   },
 
   modalPosition: {
@@ -78,13 +73,13 @@ const useStyles = makeStyles({
       outline: "none",
     },
     overflow: "scroll",
-    height: "60vh"
+    height: "60vh",
   },
 
   modalText: {
     fontWeight: "normal",
     fontStyle: "italic",
   },
-});
+}));
 
 export { useStyles };

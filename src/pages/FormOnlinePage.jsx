@@ -6,27 +6,47 @@ import axios from "axios";
 import FormControl from "../components/FormControl";
 import MaterialModal from "../components/MaterialModal";
 import styles from "../styles/formPage";
-import globalStyles from "../styles/global";
-import { Grid } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const ErrorText = ({ name, errorStyle }) => {
-  const [field, meta, helpers] = useField(name);
-
-  const renderError = () => {
-    if (!meta.error) return;
-
-    return <p>{meta.error}</p>;
-  };
-
-  return <div style={errorStyle}>{renderError()}</div>;
-};
+const useStyles = makeStyles((theme) => ({
+  titleText: {
+    color: theme.palette.secondary.dark,
+  },
+  bodyText: {
+    color: theme.palette.secondary.main,
+  },
+  errorText: {
+    color: theme.palette.error.main,
+  },
+  button: {
+    backgroundColor: theme.palette.secondary.dark,
+    color: theme.palette.tertiary.main,
+  },
+}));
 
 export default function FormOnlinePage() {
   const [dialogVisible, setDialogVisible] = useState(false);
 
+  const classes = useStyles();
   const history = useHistory();
   const isMobileScreen = useMediaQuery("(max-width: 1024px)");
+
+  const ErrorText = ({ name, errorStyle }) => {
+    const meta = useField(name)[1];
+
+    const renderError = () => {
+      if (!meta.error) return;
+
+      return <p>{meta.error}</p>;
+    };
+
+    return (
+      <div style={errorStyle} className={classes.errorText}>
+        {renderError()}
+      </div>
+    );
+  };
 
   const initialFormData = {
     privacy: false,
@@ -64,8 +84,7 @@ export default function FormOnlinePage() {
       supportMessage,
     } = values;
 
-    const url =
-      "https://sheet.best/api/sheets/6839cda2-8c56-4197-b427-b5d5e8e58404";
+    const url = "";
 
     if (contribution === "other") {
       const contributionOtherNumeric = parseInt(contributionOther) || 0;
@@ -182,19 +201,33 @@ export default function FormOnlinePage() {
 
   const ResponsiveTitle = ({ children }) => {
     return isMobileScreen ? (
-      <h1 style={styles.titleMobile}>{children}</h1>
+      <h1 style={styles.titleMobile} className={classes.titleText}>
+        {children}
+      </h1>
     ) : (
-      <h1 style={styles.title}>{children}</h1>
+      <h1 style={styles.title} className={classes.titleText}>
+        {children}
+      </h1>
     );
   };
 
   const ResponsiveButton = ({ children, ...rest }) => {
     return isMobileScreen ? (
-      <button type="submit" style={styles.buttonMobile} {...rest}>
+      <button
+        type="submit"
+        style={styles.buttonMobile}
+        {...rest}
+        className={classes.button}
+      >
         {children}
       </button>
     ) : (
-      <button type="submit" style={styles.button} {...rest}>
+      <button
+        type="submit"
+        style={styles.button}
+        {...rest}
+        className={classes.button}
+      >
         {children}
       </button>
     );
@@ -242,15 +275,15 @@ export default function FormOnlinePage() {
                       setIsVisible={setDialogVisible}
                       isMobileScreen={isMobileScreen}
                     />
-                    <h4>
+                    <h4 className={classes.bodyText}>
                       Please{" "}
                       <span
                         onClick={() => setDialogVisible(true)}
                         style={{
                           textDecoration: "underline",
-                          color: globalStyles.tertiaryColor,
                           cursor: "pointer",
                         }}
+                        className={classes.errorText}
                       >
                         click here
                       </span>{" "}
