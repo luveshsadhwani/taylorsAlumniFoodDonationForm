@@ -1,9 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { makeStyles } from "@material-ui/core";
 import styles from "../styles/landingPage";
 
+const useStyles = makeStyles((theme) => ({
+  bodyText: {
+    color: theme.palette.secondary.dark,
+  },
+  button: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.tertiary.main,
+  },
+}));
+
 export default function LandingPage() {
+  const classes = useStyles();
+
   const isMobileScreen = useMediaQuery("(max-width: 1024px)");
   const isSmallMobileScreen = useMediaQuery("(max-width: 400px)");
 
@@ -17,22 +30,26 @@ export default function LandingPage() {
 
   const ResponsiveText = ({ children }) => {
     return isMobileScreen ? (
-      <p style={styles.descriptionMobile}>{children}</p>
+      <p style={styles.descriptionMobile} className={classes.bodyText}>
+        {children}
+      </p>
     ) : (
-      <p style={styles.description}>{children}</p>
+      <p style={styles.description} className={classes.bodyText}>
+        {children}
+      </p>
     );
   };
 
   const ResponsiveButton = () => {
     return isMobileScreen ? (
-      <button style={styles.buttonMobile}>
+      <button style={styles.buttonMobile} className={classes.button}>
         <strong>
           Donate <br />
           Now!
         </strong>
       </button>
     ) : (
-      <button style={styles.button}>
+      <button style={styles.button} className={classes.button}>
         <strong>
           Donate <br />
           Now!

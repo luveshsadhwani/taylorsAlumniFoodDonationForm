@@ -1,8 +1,5 @@
-import globalStyles from "./global";
-
 const styles = {
   title: {
-    color: globalStyles.primaryColor,
     position: "relative",
     fontSize: "3rem",
     marginTop: "1.5rem",
@@ -10,14 +7,12 @@ const styles = {
   },
 
   titleMobile: {
-    color: globalStyles.primaryColor,
     position: "relative",
     fontSize: "1.75rem",
     marginTop: "2rem",
   },
 
   description: {
-    color: globalStyles.secondaryColorDark,
     width: "60%",
     fontSize: "1rem",
     fontWeight: "bold",
@@ -25,7 +20,6 @@ const styles = {
   },
 
   descriptionMobile: {
-    color: globalStyles.secondaryColorDark,
     width: "80%",
     fontSize: "0.75rem",
     fontWeight: "bold",
@@ -33,20 +27,16 @@ const styles = {
   },
 
   button: {
-    backgroundColor: globalStyles.tertiaryColor,
-    color: "white",
     fontSize: "1.5rem",
     height: "5rem",
     width: "12rem",
     marginTop: "1.5rem",
     border: "none",
     borderRadius: "5px",
-    cursor:"pointer",
+    cursor: "pointer",
   },
 
   buttonMobile: {
-    backgroundColor: globalStyles.tertiaryColor,
-    color: "white",
     fontSize: "1.1rem",
     height: "4rem",
     width: "8rem",
