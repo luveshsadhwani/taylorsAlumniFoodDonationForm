@@ -2,13 +2,9 @@
   margin: 0px;
 }
 
-body {
-  background-color: #77beea
-  ;
-}
-
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .background {

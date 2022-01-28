@@ -23,6 +23,23 @@ const theme = createTheme({
       xl: 1920,
     },
   },
+  palette: {
+    primary: {
+      main: "#95CBEDff",
+    },
+    secondary: {
+      main: "#005CA9ff",
+    },
+    tertiary: {
+      main: "#FFFF01ff",
+    },
+    success: {
+      main: "#009F96ff",
+    },
+    error: {
+      main: "#ED470Dff",
+    },
+  },
 });
 
 function App() {
@@ -33,7 +50,10 @@ function App() {
   };
   return (
     <MuiThemeProvider theme={theme}>
-      <div className="App">
+      <div
+        className="App"
+        style={{ backgroundColor: theme.palette.primary.light }}
+      >
         <Grid container>
           <Grid item xs={12} md={6}>
             <div className="background" style={styles.header} />
