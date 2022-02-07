@@ -1,7 +1,4 @@
 import React from "react";
-import Input from "./Input";
-import Select from "./Select";
-import TextArea from "./TextArea";
 import CheckBox from "./CheckBox";
 import MaterialInput from "./MaterialInput";
 import MaterialSelect from "./MaterialSelect";
@@ -16,12 +13,6 @@ function FormControl(props) {
       return <MaterialSelect {...rest} />;
     case "material-textarea":
       return <MaterialTextArea {...rest} />;
-    case "input":
-      return <Input {...rest} />;
-    case "select":
-      return <Select {...rest} />;
-    case "textarea":
-      return <TextArea {...rest} />;
     case "checkbox":
       return <CheckBox {...rest} />;
     default:

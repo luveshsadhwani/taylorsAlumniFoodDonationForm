@@ -44,10 +44,6 @@ const styles = {
     border: "none",
     borderRadius: "5px",
   },
-
-  buttonTextSpan: { fontSize: "1rem" },
-
-  buttonTextSpanMobile: { fontSize: "0.8rem" },
 };
 
 export default styles;

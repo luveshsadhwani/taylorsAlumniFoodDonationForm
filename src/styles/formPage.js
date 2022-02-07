@@ -44,34 +44,6 @@ const styles = {
     borderRadius: "5px",
   },
 
-  formInput: {
-    width: 200,
-    height: 25,
-    fontSize: "1rem",
-  },
-
-  formInputMui: {
-    backgroundColor: "#02704A",
-  },
-
-  formSelect: {
-    width: 200,
-    fontSize: "1rem",
-  },
-
-  formTextArea: {
-    fontSize: "1.1rem",
-  },
-
-  leftAlignError: {
-    width: "300px",
-    color: "#FF5151",
-    position: "absolute",
-    fontWeight: "bold",
-    margin: "0 auto",
-    textAlign: "left",
-  },
-
   centerAlignError: {
     fontFamily: "Helvetica",
     position: "relative",
