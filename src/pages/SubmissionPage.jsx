@@ -2,12 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { makeStyles } from "@material-ui/core";
 import styles from "../styles/submissionPage";
+
+const useStyles = makeStyles((theme) => ({
+  titleText: { color: theme.palette.secondary.dark },
+  bodyText: { color: theme.palette.secondary.main },
+  linkText: { color: theme.palette.tertiary.main },
+  button: { backgroundColor: theme.palette.tertiary.main, color: "white" },
+}));
 
 export default function SubmissionPage() {
   const [contribution, setContribution] = useState(0);
   const isMobileScreen = useMediaQuery("(max-width: 1024px)");
   const { state } = useLocation();
+
+  const classes = useStyles();
 
   useEffect(() => {
     const contributionOther = parseInt(state?.values?.contributionOther);
@@ -16,25 +26,37 @@ export default function SubmissionPage() {
 
   const ResponsiveTitle = ({ children }) => {
     return isMobileScreen ? (
-      <h1 style={styles.titleMobile}>{children}</h1>
+      <h1 style={styles.titleMobile} className={classes.titleText}>
+        {children}
+      </h1>
     ) : (
-      <h1 style={styles.title}>{children}</h1>
+      <h1 style={styles.title} className={classes.titleText}>
+        {children}
+      </h1>
     );
   };
 
   const ResponsiveText = ({ children }) => {
     return isMobileScreen ? (
-      <p style={styles.descriptionMobile}>{children}</p>
+      <p style={styles.descriptionMobile} className={classes.bodyText}>
+        {children}
+      </p>
     ) : (
-      <p style={styles.description}>{children}</p>
+      <p style={styles.description} className={classes.bodyText}>
+        {children}
+      </p>
     );
   };
 
   const ResponsiveButton = () => {
     return isMobileScreen ? (
-      <button style={styles.buttonMobile}>The Lost Food Project</button>
+      <button style={styles.buttonMobile} className={classes.button}>
+        The Lost Food Project
+      </button>
     ) : (
-      <button style={styles.button}>The Lost Food Project</button>
+      <button style={styles.button} className={classes.button}>
+        The Lost Food Project
+      </button>
     );
   };
 
@@ -81,7 +103,7 @@ export default function SubmissionPage() {
       <ResponsiveTitle>Oops! </ResponsiveTitle>
       <ResponsiveText>
         Please submit the{" "}
-        <Link to="/formOnline" style={styles.link}>
+        <Link to="/formOnline" className={classes.linkText} style={styles.link}>
           form for donations
         </Link>{" "}
         first!

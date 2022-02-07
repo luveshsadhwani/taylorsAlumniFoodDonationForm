@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.error.main,
   },
   button: {
-    backgroundColor: theme.palette.secondary.dark,
-    color: theme.palette.tertiary.main,
+    backgroundColor: theme.palette.tertiary.main,
+    color: "white",
   },
 }));
 

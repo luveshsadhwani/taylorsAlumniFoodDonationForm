@@ -9,8 +9,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.dark,
   },
   button: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.tertiary.main,
+    backgroundColor: theme.palette.tertiary.main,
+    color: "white",
   },
 }));
 
