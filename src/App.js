@@ -14,30 +14,21 @@ const routes = [
 ];
 
 const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 1025,
-      lg: 1280,
-      xl: 1920,
-    },
-  },
   palette: {
     primary: {
-      main: "#95CBEDff",
+      main: "#005FAD",
     },
     secondary: {
-      main: "#005CA9ff",
+      main: "#324658",
     },
     tertiary: {
-      main: "#ef5b24",
+      main: "#ED470D",
     },
     success: {
-      main: "#009F96ff",
+      main: "#009F96",
     },
     error: {
-      main: "#ED470Dff",
+      main: "#FF1F1F",
     },
   },
 });
@@ -50,10 +41,7 @@ function App() {
   };
   return (
     <MuiThemeProvider theme={theme}>
-      <div
-        className="App"
-        style={{ backgroundColor: theme.palette.primary.light }}
-      >
+      <div className="App" style={{ backgroundColor: "#C5E0F2" }}>
         <Grid container>
           <Grid item xs={12} md={6}>
             <div className="background" style={styles.header} />
