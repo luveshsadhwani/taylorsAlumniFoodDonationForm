@@ -4,20 +4,39 @@ import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import FormControl from "../components/FormControl";
-import MaterialModal from "../components/MaterialModal";
-import styles from "../styles/formPage";
+import MaterialDialog from "../components/MaterialDialog";
 import { Grid, makeStyles } from "@material-ui/core";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import TitleComponent from "../components/TitleText";
+import TextComponent from "../components/BodyText";
+import ButtonComponent from "../components/Button";
+import ErrorTextComponent from "../components/ErrorText";
 
 const useStyles = makeStyles((theme) => ({
-  titleText: {
-    color: theme.palette.secondary.dark,
+  titleContainer: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "1rem",
+      paddingLeft: "1.5rem",
+    },
+    marginTop: "2rem",
+    paddingLeft: "4rem",
   },
-  bodyText: {
-    color: theme.palette.secondary.main,
+  linkText: {
+    color: theme.palette.tertiary.main,
+    textDecoration: "underline",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
-  errorText: {
-    color: theme.palette.error.main,
+  rowContainer: {
+    justifyContent: "flex-start",
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "1.5rem",
+      paddingRight: "1.5rem",
+      marginTop: "0.7rem",
+    },
+
+    paddingLeft: "4rem",
+    paddingRight: "6rem",
+    marginTop: "1rem",
   },
   button: {
     backgroundColor: theme.palette.tertiary.main,
@@ -26,25 +45,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FormOnlinePage() {
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
   const classes = useStyles();
   const history = useHistory();
-  const isMobileScreen = useMediaQuery("(max-width: 1024px)");
 
-  const ErrorText = ({ name, errorStyle }) => {
+  const ErrorText = ({ name }) => {
     const meta = useField(name)[1];
-
-    const renderError = () => {
-      if (!meta.error) return;
-
-      return <p>{meta.error}</p>;
-    };
-
-    return (
-      <div style={errorStyle} className={classes.errorText}>
-        {renderError()}
-      </div>
+    return meta.error ? (
+      <ErrorTextComponent>{meta.error}</ErrorTextComponent>
+    ) : (
+      <></>
     );
   };
 
@@ -147,92 +166,6 @@ export default function FormOnlinePage() {
     { key: "Other", value: "other" },
   ];
 
-  const ResponsiveRowContainer = ({ children, ...rest }) => {
-    return isMobileScreen ? (
-      <Grid
-        container
-        align="left"
-        style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
-        justifyContent="flex-start"
-        {...rest}
-      >
-        {children}
-      </Grid>
-    ) : (
-      <Grid
-        container
-        align="left"
-        style={{ paddingLeft: "4rem", paddingRight: "6rem" }}
-        justifyContent="flex-start"
-        {...rest}
-      >
-        {children}
-      </Grid>
-    );
-  };
-
-  const ResponsiveRowFormContainer = ({ children, ...rest }) => {
-    return isMobileScreen ? (
-      <Grid
-        container
-        align="center"
-        style={{ width: "100%", padding: "0rem 1.5rem" }}
-        spacing={2}
-      >
-        {children}
-      </Grid>
-    ) : (
-      <Grid
-        container
-        align="left"
-        style={{
-          paddingLeft: "4rem",
-          paddingRight: "4rem",
-          width: "90%",
-        }}
-        justifyContent="flex-start"
-        spacing={2}
-        {...rest}
-      >
-        {children}
-      </Grid>
-    );
-  };
-
-  const ResponsiveTitle = ({ children }) => {
-    return isMobileScreen ? (
-      <h1 style={styles.titleMobile} className={classes.titleText}>
-        {children}
-      </h1>
-    ) : (
-      <h1 style={styles.title} className={classes.titleText}>
-        {children}
-      </h1>
-    );
-  };
-
-  const ResponsiveButton = ({ children, ...rest }) => {
-    return isMobileScreen ? (
-      <button
-        type="submit"
-        style={styles.buttonMobile}
-        {...rest}
-        className={classes.button}
-      >
-        {children}
-      </button>
-    ) : (
-      <button
-        type="submit"
-        style={styles.button}
-        {...rest}
-        className={classes.button}
-      >
-        {children}
-      </button>
-    );
-  };
-
   const switchFormControl = (formikValues) => {
     const value = formikValues["contribution"];
     const valueIsOther = value === "other";
@@ -242,7 +175,6 @@ export default function FormOnlinePage() {
         control="material-input"
         label="Contribution"
         name="contributionOther"
-        isMobileScreen={isMobileScreen}
         helperText="Enter your contribution in RM"
       />
     ) : (
@@ -251,7 +183,6 @@ export default function FormOnlinePage() {
         label="Contribution"
         name="contribution"
         options={contributionOptions}
-        isMobileScreen={isMobileScreen}
       />
     );
   };
@@ -259,7 +190,11 @@ export default function FormOnlinePage() {
   return (
     <>
       <div>
-        <ResponsiveTitle>Please fill in the form</ResponsiveTitle>
+        <div className={classes.titleContainer}>
+          <TitleComponent align="left" variant="h4">
+            Please fill in the form
+          </TitleComponent>
+        </div>
         <Formik
           initialValues={initialFormData}
           onSubmit={handleSubmit}
@@ -268,97 +203,138 @@ export default function FormOnlinePage() {
           {(formik) => {
             return (
               <Form>
-                <ResponsiveRowContainer>
+                <Grid
+                  container
+                  align="left"
+                  className={classes.rowContainer}
+                  spacing={3}
+                >
                   <Grid item xs={12}>
-                    <MaterialModal
-                      isVisible={dialogVisible}
-                      setIsVisible={setDialogVisible}
-                      isMobileScreen={isMobileScreen}
-                    />
-                    <h4 className={classes.bodyText}>
+                    <MaterialDialog onClose={handleClose} open={openDialog}>
+                      <TextComponent variant="body2">
+                        By submitting this Form, you hereby agree that Taylor’s
+                        Alumni Office may collect, obtain, store and process
+                        your personal data that you provide in this form for the
+                        purpose of receiving updates, news, promotional and
+                        marketing mails or materials from Taylor’s Alumni
+                        Office.
+                      </TextComponent>
+                      <br />
+                      <TextComponent variant="body2">
+                        You hereby give your consent to Taylor’s Alumni Office
+                        to:
+                      </TextComponent>
+                      <br />
+                      <TextComponent variant="body2">
+                        a) Store and process your Personal Data - This
+                        information obtained from the form, will be stored in
+                        our alumni database which will be used for future
+                        communications to alumni.
+                      </TextComponent>
+                      <br />
+                      <TextComponent variant="body2">
+                        b) Disclose your Personal Data to the relevant
+                        governmental authorities, companies within the Taylor’s
+                        Education Group within or outside Malaysia or third
+                        parties where required by law or for legal purposes and
+                        outsourcing services.
+                      </TextComponent>
+                      <br />
+                      <TextComponent variant="body2">
+                        c) Disclose your Personal Data to third parties
+                        appointed by Taylor’s Alumni Office to provide services,
+                        such as but not limited to auditors, legal
+                        representatives, contractors, printing companies, data
+                        processors, technology providers (to support the
+                        development, implementation and maintenance of the
+                        online /virtual environment) and insurance companies;
+                      </TextComponent>
+                      <br />
+                      <TextComponent variant="body2">
+                        In addition, your personal data may be transferred to
+                        any company within Taylor’s University/Taylor’s
+                        Education Group within or outside Malaysia. For the
+                        purpose of updating or correcting such data, you may at
+                        any time apply to the Taylor’s Alumni Office to have
+                        access to your personal data which are stored by
+                        Taylor’s Alumni Office.
+                      </TextComponent>
+                      <br />
+                      <TextComponent variant="body2">
+                        For the avoidance of doubt, Personal Data includes all
+                        data defined within the Personal Data Protection Act
+                        2010 including all data you had disclosed to Taylor’s
+                        Alumni Office in this Form.
+                      </TextComponent>
+                      <br />
+                      <FormControl control="checkbox" name="privacy">
+                        <strong>
+                          I hereby understand and agree/consent to above terms
+                          on the collection, retention and processing of my
+                          personal data.
+                        </strong>
+                      </FormControl>
+                      <br />
+                    </MaterialDialog>
+                    <TextComponent variant="body1">
                       Please{" "}
-                      <span
-                        onClick={() => setDialogVisible(true)}
-                        style={{
-                          textDecoration: "underline",
-                          cursor: "pointer",
-                        }}
-                        className={classes.errorText}
-                      >
+                      <span onClick={handleOpen} className={classes.linkText}>
                         click here
                       </span>{" "}
                       to view and accept our terms and conditions
-                    </h4>
+                    </TextComponent>
                   </Grid>
-                </ResponsiveRowContainer>
 
-                <ResponsiveRowFormContainer>
-                  <Grid item xs={6} lg={6} style={{ marginTop: "0.7rem" }}>
+                  <Grid item xs={6}>
                     <FormControl
                       control="material-input"
                       label="Full Name"
                       name="fullName"
-                      isMobileScreen={isMobileScreen}
                     />
                   </Grid>
 
-                  <Grid item xs={6} lg={6} style={{ marginTop: "0.7rem" }}>
+                  <Grid item xs={6}>
                     <FormControl
                       control="material-input"
                       label="Email"
                       name="email"
-                      isMobileScreen={isMobileScreen}
                     />
                   </Grid>
-                </ResponsiveRowFormContainer>
 
-                <ResponsiveRowFormContainer>
-                  <Grid item xs={6} lg={6}>
+                  <Grid item xs={6}>
                     {switchFormControl(formik.values)}
                   </Grid>
 
-                  <Grid item xs={6} lg={6}>
+                  <Grid item xs={6}>
                     <FormControl
                       control="material-select"
                       label="Education at Taylors"
                       name="education"
                       options={educationOptions}
-                      isMobileScreen={isMobileScreen}
                     />
                   </Grid>
-                </ResponsiveRowFormContainer>
 
-                <ResponsiveRowFormContainer>
-                  <Grid item xs={12} lg={12}>
+                  <Grid item xs={12}>
                     <FormControl
                       control="material-textarea"
                       label="Message of Support"
                       name="supportMessage"
-                      isMobileScreen={isMobileScreen}
                     />
                   </Grid>
-                </ResponsiveRowFormContainer>
 
-                <ResponsiveRowContainer>
-                  <ResponsiveButton disabled={formik.isSubmitting}>
-                    {formik.isSubmitting ? (
-                      <strong>Sending...</strong>
-                    ) : (
-                      <strong>Submit</strong>
-                    )}
-                  </ResponsiveButton>
-                </ResponsiveRowContainer>
+                  <Grid item xs={12}>
+                    <ButtonComponent
+                      type="submit"
+                      text={formik.isSubmitting ? "Sending..." : "Submit"}
+                      disabled={formik.isSubmitting}
+                      // onClick={() => history.push("/formOnline")}
+                    />
+                  </Grid>
 
-                <ResponsiveRowContainer>
-                  <ErrorText
-                    name="privacy"
-                    errorStyle={
-                      isMobileScreen
-                        ? styles.centerAlignErrorMobile
-                        : styles.centerAlignError
-                    }
-                  />
-                </ResponsiveRowContainer>
+                  <Grid item xs={12}>
+                    <ErrorText name="privacy" />
+                  </Grid>
+                </Grid>
               </Form>
             );
           }}

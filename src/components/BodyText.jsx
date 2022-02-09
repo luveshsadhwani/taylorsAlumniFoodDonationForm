@@ -1,15 +1,16 @@
 import React from "react";
 import { styled, Typography } from "@material-ui/core";
 
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "1rem",
-  },
-  fontSize: "1.25rem",
-}));
+const StyledTypography = styled(Typography)(({ theme }) => ({}));
 
 const TextComponent = (props) => (
-  <StyledTypography color="secondary" align={props.align}>
+  <StyledTypography
+    color={props.color || "secondary"}
+    variant={props.variant}
+    align={props.align}
+    display={props.display}
+    htmlFor={props.htmlFor}
+  >
     {props.children}
   </StyledTypography>
 );

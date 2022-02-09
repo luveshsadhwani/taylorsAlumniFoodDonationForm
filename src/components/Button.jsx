@@ -18,10 +18,11 @@ const ButtonComponent = (props) => (
   <StyledButton
     variant="contained"
     disableElevation
+    type={props.type}
+    disabled={props.disabled}
     color="primary"
     onClick={props.onClick}
     href={props.href}
-    size={props.isMobile ? "medium" : "large"}
   >
     {props.text}
   </StyledButton>

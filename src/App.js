@@ -1,6 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Grid, MuiThemeProvider, createTheme } from "@material-ui/core";
+import {
+  Grid,
+  MuiThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+} from "@material-ui/core";
 import RouteTransition from "./components/RouteTransition";
 
 import FormOnlinePage from "./pages/FormOnlinePage";
@@ -13,7 +18,7 @@ const routes = [
   { path: "/submission", Component: SubmissionPage },
 ];
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: "#005FAD",
@@ -32,27 +37,34 @@ const theme = createTheme({
     },
   },
 });
+theme = responsiveFontSizes(theme);
 
 function App() {
-  const styles = {
-    header: {
-      backgroundImage: `url(${process.env.PUBLIC_URL + "/img/image.jpg"})`,
-    },
-  };
   return (
     <MuiThemeProvider theme={theme}>
-      <div className="App" style={{ backgroundColor: "#C5E0F2" }}>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <div className="background" style={styles.header} />
-          </Grid>
-          <Grid item xs={12} md={6} className="contents">
-            <Router>
-              <RouteTransition routes={routes} />
-            </Router>
-          </Grid>
+      <Grid
+        container
+        style={{
+          backgroundColor: "#C5E0F2",
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          style={{
+            backgroundImage: `url("img/image.jpg")`,
+            backgroundSize: "cover",
+          }}
+        ></Grid>
+        <Grid item xs={12} sm={6} className="contents">
+          <Router>
+            <RouteTransition routes={routes} />
+          </Router>
         </Grid>
-      </div>
+      </Grid>
     </MuiThemeProvider>
   );
 }

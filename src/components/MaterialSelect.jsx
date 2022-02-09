@@ -1,9 +1,8 @@
 import React from "react";
 import { Field } from "formik";
-import { Label } from "./FormElement";
 import { makeStyles } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-import { MUITextField } from "./MaterialTextField";
+import TextFieldComponent from "./MaterialTextField";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -13,29 +12,27 @@ const useStyles = makeStyles((theme) => ({
 
 function MaterialSelect(props) {
   const classes = useStyles();
-  const { label, name, options, isMobileScreen, ...rest } = props;
+  const { options, ...rest } = props;
 
   return (
-    <Field name={name}>
+    <Field name={props.name}>
       {({ field, form }) => {
-        const isError = Boolean(form.errors[name] && form.touched[name]);
+        const isError = Boolean(
+          form.errors[props.name] && form.touched[props.name]
+        );
         return (
-          <MUITextField
-            label={<Label>{label}</Label>}
-            name={name}
+          <TextFieldComponent
             {...field}
             {...rest}
             error={isError}
             helperText={
-              isError ? form.errors[name] : "Select from the following"
+              isError ? form.errors[props.name] : "Select from the following"
             }
-            variant="filled"
+            margin="dense"
+            select
             SelectProps={{
               classes: { icon: classes.icon },
             }}
-            select
-            fullWidth
-            margin="dense"
           >
             {options.map((option) => {
               return (
@@ -44,7 +41,7 @@ function MaterialSelect(props) {
                 </MenuItem>
               );
             })}
-          </MUITextField>
+          </TextFieldComponent>
         );
       }}
     </Field>

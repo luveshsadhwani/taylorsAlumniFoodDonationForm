@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "0rem 7rem",
   },
   buttonContainer: {
+    textAlign: "center",
     [theme.breakpoints.down("sm")]: {
       marginTop: "1rem",
     },
@@ -50,7 +51,7 @@ export default function LandingPage() {
         />
       </div>
       <div className={classes.textContainer}>
-        <TextComponent align="center">
+        <TextComponent align="center" variant="h6">
           As the situation of Covid-19 unfolds in Malaysia, Taylors Alumni have
           collaborated with The Lost Food Project to help those in need with
           donations to their food banks. We are facing an unprecedented

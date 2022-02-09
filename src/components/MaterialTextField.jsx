@@ -1,34 +1,44 @@
-// use styled components for textfield
-// access to theme
 import { styled, TextField } from "@material-ui/core";
 
-const MUITextField = styled(TextField, {
-  shouldForwardProp: (prop) => prop !== "mobile",
-})(({ mobile, theme }) => ({
-  "& .MuiFilledInput-underline": {
-    "&:before": {
-      borderColor: theme.palette.secondary.dark,
-    },
-  },
+const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiFormLabel-root": {
-    fontSize: mobile ? "3.75em" : "0.8em",
-    color: theme.palette.secondary.dark,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.75rem",
+    },
+    fontSize: "1rem",
   },
   "& .MuiFilledInput-input": {
     fontWeight: "bold",
-    fontSize: mobile ? "0.75rem" : "0.9rem",
+    fontSize: "1rem",
   },
   "& .MuiFormHelperText-root": {
-    color: theme.palette.secondary.dark,
+    color: theme.palette.secondary.main,
     "&.Mui-error": {
-      color: theme.palette.error.dark,
-      fontSize: mobile ? "0.6rem" : null,
+      color: theme.palette.error.main,
     },
   },
 }));
 
-export { MUITextField };
-
-// function MaterialTextField(props) {} to control API?
-
-// export default MaterialTextField;
+const TextFieldComponent = (props) => {
+  const { ...field } = props;
+  return (
+    <StyledTextField
+      {...field}
+      label={props.label}
+      helperText={props.helperText}
+      name={props.name}
+      error={props.error}
+      color="primary"
+      align={props.align}
+      variant="filled"
+      fullWidth
+      multiline={props.multiline}
+      margin={props.margin}
+      minRows={props.minRows}
+      select={props.select}
+    >
+      {props.children}
+    </StyledTextField>
+  );
+};
+export default TextFieldComponent;

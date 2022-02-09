@@ -1,28 +1,24 @@
 import React from "react";
 import { Field } from "formik";
-import { Label } from "./FormElement";
-import { MUITextField } from "./MaterialTextField";
+import TextFieldComponent from "./MaterialTextField";
 
 export default function MaterialInput(props) {
-  const { label, name, isMobileScreen, helperText = "", ...rest } = props;
+  const { helperText, ...rest } = props;
   return (
     <div>
-      <Field name={name}>
+      <Field name={props.name}>
         {({ field, form }) => {
-          const isError = Boolean(form.errors[name] && form.touched[name]);
+          const isError = Boolean(
+            form.errors[props.name] && form.touched[props.name]
+          );
           return (
             <>
-              <MUITextField
-                label={<Label>{label}</Label>}
-                name={name}
+              <TextFieldComponent
                 {...field}
                 {...rest}
                 error={isError}
-                helperText={isError ? form.errors[name] : helperText}
-                variant="filled"
-                fullWidth
+                helperText={isError ? form.errors[props.name] : helperText}
                 margin="dense"
-                mobile={isMobileScreen ? 1 : 0}
               />
             </>
           );
