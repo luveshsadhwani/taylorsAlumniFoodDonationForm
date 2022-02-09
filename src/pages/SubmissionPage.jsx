@@ -1,20 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles } from "@material-ui/core";
-import styles from "../styles/submissionPage";
+import TitleComponent from "../components/TitleText";
+import TextComponent from "../components/BodyText";
+import ButtonComponent from "../components/Button";
 
 const useStyles = makeStyles((theme) => ({
-  titleText: { color: theme.palette.secondary.dark },
-  bodyText: { color: theme.palette.secondary.main },
+  titleContainer: {
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "4rem",
+    },
+    marginTop: "10rem",
+  },
+  leftTextContainer: {
+    [theme.breakpoints.down("sm")]: {
+      padding: "0rem 2rem",
+      marginTop: "1rem",
+    },
+    marginTop: "3rem",
+    paddingLeft: "6rem",
+  },
+  centerTextContainer: {
+    [theme.breakpoints.down("sm")]: {
+      padding: "0rem 2rem",
+      marginTop: "1rem",
+    },
+    marginTop: "3rem",
+  },
+  buttonContainer: {
+    textAlign: "center",
+    marginTop: "3rem",
+  },
+  buttonText: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "100px",
+    },
+    fontSize: "1rem",
+  },
   linkText: { color: theme.palette.tertiary.main },
-  button: { backgroundColor: theme.palette.tertiary.main, color: "white" },
 }));
 
 export default function SubmissionPage() {
   const [contribution, setContribution] = useState(0);
-  const isMobileScreen = useMediaQuery("(max-width: 1024px)");
   const { state } = useLocation();
 
   const classes = useStyles();
@@ -24,58 +52,33 @@ export default function SubmissionPage() {
     setContribution(contributionOther);
   }, [state?.values?.contributionOther]);
 
-  const ResponsiveTitle = ({ children }) => {
-    return isMobileScreen ? (
-      <h1 style={styles.titleMobile} className={classes.titleText}>
-        {children}
-      </h1>
-    ) : (
-      <h1 style={styles.title} className={classes.titleText}>
-        {children}
-      </h1>
-    );
-  };
-
-  const ResponsiveText = ({ children }) => {
-    return isMobileScreen ? (
-      <p style={styles.descriptionMobile} className={classes.bodyText}>
-        {children}
-      </p>
-    ) : (
-      <p style={styles.description} className={classes.bodyText}>
-        {children}
-      </p>
-    );
-  };
-
-  const ResponsiveButton = () => {
-    return isMobileScreen ? (
-      <button style={styles.buttonMobile} className={classes.button}>
-        The Lost Food Project
-      </button>
-    ) : (
-      <button style={styles.button} className={classes.button}>
-        The Lost Food Project
-      </button>
-    );
-  };
-
   const FormIsSubmittedResponse = () => {
     return (
       <>
-        <ResponsiveTitle>Thank you!</ResponsiveTitle>
+        <div className={classes.titleContainer}>
+          <TitleComponent align="center" variant="h2">
+            Thank You!
+          </TitleComponent>
+        </div>
+        <div className={classes.centerTextContainer}>
+          <TextComponent align="center" variant="h5">
+            You will proceed to The Lost Food Project.
+            <br />
+            <br />
+            Please select SINGLE GIFT for the donation.
+            <br />
+            <br /> Click below once you are ready!
+          </TextComponent>
+        </div>
 
-        <ResponsiveText>
-          You will proceed to The Lost Food Project. <br />
-          <br />
-          Please select SINGLE GIFT for the donation.
-          <br />
-          <br /> Click below once you are ready!
-        </ResponsiveText>
-
-        <a href="https://donate.thelostfoodproject.org/ODP/Donate/DonateNow">
-          <ResponsiveButton />
-        </a>
+        <div className={classes.buttonContainer}>
+          <a
+            href="https://donate.thelostfoodproject.org/ODP/Donate/DonateNow"
+            style={{ textDecoration: "none" }}
+          >
+            <ButtonComponent fontSize="small" text={"The Lost Food Project"} />
+          </a>
+        </div>
       </>
     );
   };
@@ -83,36 +86,50 @@ export default function SubmissionPage() {
   const FormIsSubmittedResponseLessThan100Contribution = () => {
     return (
       <>
-        <ResponsiveTitle>Thank you!</ResponsiveTitle>
-
-        <ResponsiveText>
-          Please send your donation directly to the Lost Food Project! <br />
-          <br />
-          Maybank
-          <br />
-          Account Name: The Lost Food Project
-          <br />
-          Account Number: 5148 9706 8927
-        </ResponsiveText>
+        <div className={classes.titleContainer}>
+          <TitleComponent align="center" variant="h2">
+            Thank You!
+          </TitleComponent>
+        </div>
+        <div className={classes.leftTextContainer}>
+          <TextComponent align="left" variant="h5">
+            Please send your donation directly to the Lost Food Project!
+            <br />
+            <br />
+          </TextComponent>
+          <TextComponent align="left" variant="h6">
+            Maybank
+            <br />
+            Account Name: The Lost Food Project
+            <br />
+            Account Number: 5148 9706 8927
+          </TextComponent>
+        </div>
       </>
     );
   };
 
   const FormNotSubmittedResponse = () => (
     <>
-      <ResponsiveTitle>Oops! </ResponsiveTitle>
-      <ResponsiveText>
-        Please submit the{" "}
-        <Link to="/formOnline" className={classes.linkText} style={styles.link}>
-          form for donations
-        </Link>{" "}
-        first!
-      </ResponsiveText>
+      <div className={classes.titleContainer}>
+        <TitleComponent align="center" variant="h2">
+          Oops!
+        </TitleComponent>
+      </div>
+      <div className={classes.centerTextContainer}>
+        <TextComponent align="center" variant="h5">
+          Please submit the{" "}
+          <Link to="/formOnline" className={classes.linkText}>
+            form for donations
+          </Link>{" "}
+          first!
+        </TextComponent>
+      </div>
     </>
   );
 
   return (
-    <div style={styles.container}>
+    <>
       {state ? (
         contribution < 100 ? (
           <FormIsSubmittedResponseLessThan100Contribution />
@@ -122,6 +139,6 @@ export default function SubmissionPage() {
       ) : (
         <FormNotSubmittedResponse />
       )}
-    </div>
+    </>
   );
 }
