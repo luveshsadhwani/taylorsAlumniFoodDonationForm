@@ -72,12 +72,11 @@ export default function SubmissionPage() {
         </div>
 
         <div className={classes.buttonContainer}>
-          <a
+          <ButtonComponent
             href="https://donate.thelostfoodproject.org/ODP/Donate/DonateNow"
-            style={{ textDecoration: "none" }}
-          >
-            <ButtonComponent fontSize="small" text={"The Lost Food Project"} />
-          </a>
+            fontSize="small"
+            text={"The Lost Food Project"}
+          />
         </div>
       </>
     );

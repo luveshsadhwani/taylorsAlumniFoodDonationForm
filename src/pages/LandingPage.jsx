@@ -5,9 +5,6 @@ import ButtonComponent from "../components/Button";
 import TextComponent from "../components/BodyText";
 
 const useStyles = makeStyles((theme) => ({
-  bodyText: {
-    color: theme.palette.secondary.dark,
-  },
   titleContainer: {
     [theme.breakpoints.down("xl")]: {
       marginTop: "3rem",

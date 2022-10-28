@@ -327,7 +327,6 @@ export default function FormOnlinePage() {
                       type="submit"
                       text={formik.isSubmitting ? "Sending..." : "Submit"}
                       disabled={formik.isSubmitting}
-                      // onClick={() => history.push("/formOnline")}
                     />
                   </Grid>
 

@@ -8,8 +8,6 @@ const TextComponent = (props) => (
     color={props.color || "secondary"}
     variant={props.variant}
     align={props.align}
-    display={props.display}
-    htmlFor={props.htmlFor}
   >
     {props.children}
   </StyledTypography>
